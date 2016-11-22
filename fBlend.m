@@ -28,7 +28,7 @@ function [ im_blended ] = blend( im_input1, im_input2 )
 %     
 %     im_blended = cat(3, Irout, Igout, Ibout);
 
-Ir1 = im_input1(:,:,1);
+    Ir1 = im_input1(:,:,1);
     Ig1 = im_input1(:,:,2);
     Ib1 = im_input1(:,:,3);
     a1 = rgb2alpha(im_input1);
