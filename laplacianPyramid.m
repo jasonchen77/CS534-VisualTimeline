@@ -27,6 +27,7 @@ if ~all(size(im_laplacian) == size(im_original))
 end
 
 im_laplacian = im_original - im_laplacian;
+%im_laplacian = (im_original - im_laplacian) + (im_laplacian - im_original);
 
 end
 

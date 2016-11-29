@@ -25,7 +25,7 @@ im2_l1 = laplacianPyramid(im2_g1, im2_g2);
 %   images. Right now, it is split down the center, though later it would
 %   be better to find this automatically using seam finding!
 
-R = 255*ones(size(im_in1)); %assuming im1_l1 ad im2_l2 still same size
+R = ones(size(im_in1)); %assuming im1_l1 ad im2_l2 still same size
 m2 = size(im_in1,2);
 R = cat(2,0*R(:,1:int16(m2/2),:),R(:,int16(m2/2)+1:m2,:));
 R_g = impyramid(impyramid(impyramid(R, 'reduce'), 'reduce'), 'expand');
@@ -33,11 +33,12 @@ R_g = impyramid(impyramid(impyramid(R, 'reduce'), 'reduce'), 'expand');
 %3. Form a combined pyramid LS from L1 and L2 using nodes of GR
 %   as weights:
 R_g = uint8(R_g);
-result_l = R_g.*im1_l1+(255-R_g).*im2_l1;
+result_l = R_g.*im1_l1+(1-R_g).*im2_l1;
 
 %4. Collapse the LS pyramid to get the final blended image
-
-
+im1_l1_expand = impyramid(im1_l1, 'expand');
+im2_l1_expand = impyramid(im2_l1, 'expand');
+im_blended = impyramid(result_l, 'expand');
 
 end
 
