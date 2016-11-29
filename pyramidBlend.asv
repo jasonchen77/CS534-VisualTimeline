@@ -52,10 +52,10 @@ R_g1 = impyramid(impyramid(impyramid(impyramid(R, 'reduce'), 'reduce'), 'reduce'
 
 result_l = R_g.*im1_l1+(1-R_g).*im2_l1;
 
-% Normalizing values   
-    l_R = result_l(:,:,1);
-    l_G = result_l(:,:,2);
-    l_B = result_l(:,:,3);
+   
+l_R = result_l(:,:,1);
+l_G = result_l(:,:,2);
+l_B = result_l(:,:,3);
 
     minM = min(min(l_R));
     maxM = max(max(l_R));
@@ -77,7 +77,7 @@ result_l = R_g.*im1_l1+(1-R_g).*im2_l1;
     
     result_l = cat(3, l_R, l_G, l_B);
     
-    %***************3rd Layer, probably need a loop for this section
+    %***************3rd Layer, probably need a loop
     
     result_l1 = R_g1.*im1_l2+(1-R_g1).*im2_l2;
     l_R = result_l1(:,:,1);
