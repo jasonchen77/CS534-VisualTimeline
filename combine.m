@@ -7,8 +7,10 @@ function cImg = combine( im_input1, im_input2 )
     I2 = im_input2(:,h2+1:end,:);
     
     % combine the 2 images
-    cImg = cat(2, I1(:,1:h1,:), I2(:,h2:end,:));
+    %cImg = cat(2, I1(:,1:h1,:), I2(:,h2:end,:));
     
+    cImg = cat(2, I1, I2);
     %cImg1 = I1;
     %cImg2 = I2;
 end
+
