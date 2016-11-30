@@ -43,8 +43,8 @@ m2 = size(im_in1,2);
 R = cat(2,0*R(:,1:(m2/2),:),R(:,(m2/2)+1:m2,:));
 R_g = impyramid(impyramid(impyramid(R, 'reduce'), 'reduce'), 'expand');
 
-R_g1 = impyramid(impyramid(impyramid(impyramid(R, 'reduce'), 'reduce'), 'reduce'), 'expand');
-
+%R_g1 = impyramid(impyramid(impyramid(impyramid(R, 'reduce'), 'reduce'), 'reduce'), 'expand');
+R_g1 = impyramid(impyramid(impyramid(R_g, 'reduce'), 'reduce'), 'expand');
 %3. Form a combined pyramid LS from L1 and L2 using nodes of GR
 %   as weights:
 % R_g = (R_g);
@@ -106,8 +106,16 @@ result_l = R_g.*im1_l1+(1-R_g).*im2_l1;
     
     %**************
     
+    R_g2 = impyramid(impyramid(impyramid(R_g1, 'reduce'), 'reduce'), 'expand');
+    R_g3 = impyramid(impyramid(impyramid(R_g2, 'reduce'), 'reduce'), 'expand');
+    R_g4 = impyramid(impyramid(impyramid(R_g3, 'reduce'), 'reduce'), 'expand');
+    result_g3 = R_g2.*im1_g3+(1-R_g2).*im2_g3;
+%     result_g2 = R_g3.*im1_g2+(1-R_g3).*im2_g2;
+%     result_g1 = R_g4.*im1_g1+(1-R_g4).*im2_g1;
+    
 %4. Collapse the LS pyramid to get the final blended image
 
+im_blended = impyramid(result_l2, 'expand');
 im_blended = impyramid(result_l1, 'expand')+ result_l(1:257,:,:);
 im_blended = result_l;
 
