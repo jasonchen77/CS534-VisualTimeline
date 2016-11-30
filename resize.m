@@ -7,7 +7,8 @@ if ~all(size(im_1) == size(im_2))
     if size(im_1,1) < size(im_2,1)
         m1 = size(im_1,1);
         im_2 = im_2(1:m1,:,:);
-    else size(im_1,1) > size(im_2,1)
+    end
+    if size(im_1,1) > size(im_2,1)
         m1 = size(im_2,1);
         im_1 = im_1(1:m1,:,:);
     end
@@ -15,7 +16,8 @@ if ~all(size(im_1) == size(im_2))
     if size(im_1,2) < size(im_2,2)
         m2 = size(im_1,2);
         im_2 = im_2(:,1:m2,:);
-    else size(im_1,2) > size(im_2,2)
+    end
+    if size(im_1,2) > size(im_2,2)
         m2 = size(im_2,2);
         im_1 = im_1(:,1:m2,:);
     end
