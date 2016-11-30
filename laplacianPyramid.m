@@ -13,18 +13,9 @@ function [ im_laplacian ] = laplacianPyramid( im_original, im_gaussian )
 
 %probably a better way to check sizes!
 im_laplacian = impyramid(im_gaussian, 'expand');
-if ~all(size(im_laplacian) == size(im_original))
-    %ensure same number of cols
-    if size(im_laplacian,1) < size(im_original,1)
-        m1 = size(im_laplacian,1);
-        im_original = im_original(1:m1,:,:);
-    end
-    %ensure same number of rows
-    if size(im_laplacian,2) < size(im_original,2)
-        m2 = size(im_laplacian,2);
-        im_original = im_original(:,1:m2,:);
-    end
-end
+
+%ensure images are the same size
+[im_original, im_laplacian] = resize(im_original, im_laplacian);
 
 im_laplacian = im_original - im_laplacian;
 
