@@ -22,11 +22,18 @@ im1_g3 = impyramid(im1_g2, 'reduce');
 im2_g3 = impyramid(im2_g2, 'reduce');
 
 %
+im1_l0 = laplacianPyramid(im_in1, im1_g1);
+im2_l0 = laplacianPyramid(im_in2, im2_g1);
+
 im1_l1 = laplacianPyramid(im1_g1, im1_g2);
 im2_l1 = laplacianPyramid(im2_g1, im2_g2);
+[im1_l1, im1_g1] = resize(im1_l1, im1_g1);
+[im2_l1, im2_g1] = resize(im2_l1, im2_g1);
 
 im1_l2 = laplacianPyramid(im1_g2, im1_g3);
 im2_l2 = laplacianPyramid(im2_g2, im2_g3);
+[im1_l2, im1_g2] = resize(im1_l2, im1_g2);
+[im2_l2, im2_g2] = resize(im2_l2, im2_g2);
 
 %2. Build Gaussian pyramid GR from selected region R
 %   The output matte R must be the same size as the final image and input
@@ -37,21 +44,23 @@ im2_l2 = laplacianPyramid(im2_g2, im2_g3);
 R = ones(size(im_in1)); %assuming im1_l1 ad im2_l2 still same size
 m2 = size(im_in1,2);
 R = cat(2,0*R(:,1:(m2/2),:),R(:,(m2/2)+1:m2,:));
-R_g = impyramid(impyramid(impyramid(R, 'reduce'), 'reduce'), 'expand');
+[R, im1_l0] = resize(R, im1_l0);
+R_g1 = impyramid(impyramid(impyramid(R, 'reduce'), 'reduce'), 'expand');
 % R_g = createMatte(im1_l1, im2_l1);
 
-R_g1 = impyramid(impyramid(impyramid(R_g, 'reduce'), 'reduce'), 'expand');
+R_g2 = impyramid(impyramid(impyramid(R_g1, 'reduce'), 'reduce'), 'expand');
 
 %3. Form a combined pyramid LS from L1 and L2 using nodes of GR
 %   as weights:
-result_l = normalize(R_g.*im1_l1+(1-R_g).*im2_l1);
-result_l1 = normalize(R_g1.*im1_l2+(1-R_g1).*im2_l2);
-
+result_l0 = normalize(R.*im1_l0+(1-R).*im2_l0);
+result_l1 = normalize(R_g1.*im1_l1+(1-R_g1).*im2_l1);
+result_l2 = normalize(R_g2.*im1_l2+(1-R_g2).*im2_l2);
     
-    R_g2 = impyramid(impyramid(impyramid(R_g1, 'reduce'), 'reduce'), 'expand');
-    R_g3 = impyramid(impyramid(impyramid(R_g2, 'reduce'), 'reduce'), 'expand');
-    R_g4 = impyramid(impyramid(impyramid(R_g3, 'reduce'), 'reduce'), 'expand');
-    result_g3 = R_g2.*im1_g3+(1-R_g2).*im2_g3;
+R_g2 = impyramid(impyramid(impyramid(R_g1, 'reduce'), 'reduce'), 'expand');
+R_g3 = impyramid(impyramid(impyramid(R_g2, 'reduce'), 'reduce'), 'expand');
+result_g3 = R_g3.*im1_g3+(1-R_g3).*im2_g3;
+result_g2 = R_g2.*im1_g2+(1-R_g2).*im2_g2;
+result_g1 = R_g1.*im1_g1+(1-R_g1).*im2_g1;
     
 %4. Collapse the LS pyramid to get the final blended image
 
