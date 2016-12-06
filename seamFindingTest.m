@@ -17,8 +17,9 @@ E = imgradient(J);
 % I = inImg;
 % 
 % h = fspecial('average', [3,3]);
+% A = imfilter(I(:,n:n+40,:), h);
 % for c = n:1:n+40
-%     cAvg = imfilter(I(:,n:n+40,:), h);
+%     %I(:,n:n+40,:)
 % end
 % 
 % I(:,n:n+40,:) = cAvg;
