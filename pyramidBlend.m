@@ -64,10 +64,18 @@ result_g1 = R_g1.*im1_g1+(1-R_g1).*im2_g1;
     
 %4. Collapse the LS pyramid to get the final blended image
 
-im_blended = impyramid(result_l2, 'expand');
-im_blended = impyramid(result_l1, 'expand')+ result_l(1:257,:,:);
-im_blended = result_l;
+%im_blended = impyramid(result_l2, 'expand');
+%im_blended = impyramid(result_l1, 'expand')+ result_l(1:257,:,:);
 
+%----Testing codes, modify or delete later-----------------
+g1X = impyramid(result_g1, 'expand');
+[l0, g1X] = resize(result_l0, g1X);
+
+%im_blended = im_blended./2;
+im_blended = l0 + g1X;
+im_blended = im_blended/1.6;
+im_blended = seamFindingTest(im_blended);
+%-----------------------------------------------------------
 
 
 end

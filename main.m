@@ -14,4 +14,3 @@ output_image = fBlend(img1D, img2D);
 %output_image = fBlend(cImg, cImg);
 
 imshow(output_laplacian);
-
