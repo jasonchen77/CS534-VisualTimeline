@@ -2,6 +2,10 @@ clear;
 
 img1 = imread('gct-inside-2-before.0.jpg');
 img2 = imread('gct-inside2-after.0.jpg');
+
+img1 = histEqualize(img1);
+img2 = histEqualize(img2);
+
 img1D = im2double(img1);
 img2D = im2double(img2);
 

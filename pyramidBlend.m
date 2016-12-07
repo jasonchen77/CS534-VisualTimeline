@@ -40,10 +40,25 @@ im2_l2 = laplacianPyramid(im2_g2, im2_g3);
 %   images. Right now, it is split down the center, though later it would
 %   be better to find this automatically using seam finding!
 
-%************MOVED TO CREATEMATTE
-R = ones(size(im_in1)); %assuming im1_l1 ad im2_l2 still same size
-m2 = size(im_in1,2);
-R = cat(2,0*R(:,1:(m2/2),:),R(:,(m2/2)+1:m2,:));
+% STANDARD MATTE CREATION:
+% R = ones(size(im_in1)); %assuming im1_l1 ad im2_l2 still same size
+% m2 = size(im_in1,2);
+% R = cat(2,0*R(:,1:(m2/2),:),R(:,(m2/2)+1:m2,:));
+
+% SEAM FINDING MATTE CREATION:
+%find seam
+S = findSeam(im_in1);
+%create output matte of correct size
+[m,n,~] = size(im_in1);
+R = ones(n,m,3);
+for c = 1:m
+    border = S(c);
+    R(:,c,:) = cat(1,0*R(1:(border-1),c,:),1*R(border:n,c,:));
+end
+
+%rotate matte to correct orientation
+R = permute(R, [2 1 3]);
+
 [R, im1_l0] = resize(R, im1_l0);
 R_g1 = impyramid(impyramid(impyramid(R, 'reduce'), 'reduce'), 'expand');
 % R_g = createMatte(im1_l1, im2_l1);
@@ -74,7 +89,7 @@ g1X = impyramid(result_g1, 'expand');
 %im_blended = im_blended./2;
 im_blended = l0 + g1X;
 im_blended = im_blended/1.6;
-im_blended = seamFindingTest(im_blended);
+% im_blended = seamFindingTest(im_blended);
 %-----------------------------------------------------------
 
 
