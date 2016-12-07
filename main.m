@@ -1,7 +1,7 @@
 clear;
 
-img1 = imread('gct-inside-2-before.0.jpg');
-img2 = imread('gct-inside2-after.0.jpg');
+img1 = imread('doyers-before.0.jpg');
+img2 = imread('doyers-after.0.jpg');
 
 img1 = histEqualize(img1);
 img2 = histEqualize(img2);
@@ -18,3 +18,4 @@ output_image = fBlend(img1D, img2D);
 %output_image = fBlend(cImg, cImg);
 
 imshow(output_laplacian);
+imwrite(output_laplacian, 'doyle-blended.jpg');

@@ -83,12 +83,24 @@ result_g1 = R_g1.*im1_g1+(1-R_g1).*im2_g1;
 %im_blended = impyramid(result_l1, 'expand')+ result_l(1:257,:,:);
 
 %----Testing codes, modify or delete later-----------------
+%expand first level pyramid
 g1X = impyramid(result_g1, 'expand');
-[l0, g1X] = resize(result_l0, g1X);
+[l0X, g1X] = resize(result_l0, g1X);
 
-%im_blended = im_blended./2;
-im_blended = l0 + g1X;
-im_blended = im_blended/1.6;
+im_blended = l0X + g1X;
+
+%expand second level pyramid and add to first
+g2X = impyramid(result_g2, 'expand');
+[l1X, g2X] = resize(result_l1, g2X);
+
+im_blended_2 = impyramid(l1X + g2X, 'expand');
+[im_blended, im_blended_2] = resize(im_blended, im_blended_2);
+
+im_blended = im_blended + im_blended_2;
+
+%must divide to ensure all colors are visible
+im_blended = im_blended/4;
+
 % im_blended = seamFindingTest(im_blended);
 %-----------------------------------------------------------
 
