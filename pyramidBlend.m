@@ -86,29 +86,26 @@ result_g1 = R_g1.*im1_g1+(1-R_g1).*im2_g1;
 %testing expanding the complete pyramid
 result_g3_expanded = impyramid(result_g3, 'expand');
 [result_l2, result_g3_expanded] = resize(result_l2, result_g3_expanded);
-im_blended_l2 = result_l2 + result_g3_expanded;
+im_blended_2 = result_l2 + result_g3_expanded;
+[result_g2, im_blended_2] = resize(result_g2, im_blended_2);
+result_g2 = result_g2 + im_blended_2;
 
 result_g2_expanded = impyramid(result_g2, 'expand');
 [result_l1, result_g2_expanded] = resize(result_l1, result_g2_expanded);
-im_blended_l1 = result_l1 + result_g2_expanded;
+im_blended_1 = result_l1 + result_g2_expanded;
+[result_g1, im_blended_1] = resize(result_g1, im_blended_1);
+result_g1 = result_g1 + im_blended_1;
 
-%expand first level pyramid
+%expand first level pyramid - this works if not added to other levels!
 result_g1_expanded = impyramid(result_g1, 'expand');
 [result_l0, result_g1_expanded] = resize(result_l0, result_g1_expanded);
 im_blended = result_l0 + result_g1_expanded;
 
-%expand second level pyramid and add to first
-g2X = impyramid(result_g2, 'expand');
-[l1X, g2X] = resize(result_l1, g2X);
-
-im_blended_2 = impyramid(l1X + g2X, 'expand');
-[im_blended, im_blended_2] = resize(im_blended, im_blended_2);
-
-im_blended = im_blended + im_blended_2;
-
-%must divide to ensure all colors are visible
-im_blended = im_blended/4;
-
+%divide for correct color output - just for testing
+im_blended = im_blended/5;
+figure;
+imshow(im_blended)
+title('image after collapsing pyramids')
 % im_blended = seamFindingTest(im_blended);
 %-----------------------------------------------------------
 
