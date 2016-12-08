@@ -83,11 +83,19 @@ result_g1 = R_g1.*im1_g1+(1-R_g1).*im2_g1;
 %im_blended = impyramid(result_l1, 'expand')+ result_l(1:257,:,:);
 
 %----Testing codes, modify or delete later-----------------
-%expand first level pyramid
-g1X = impyramid(result_g1, 'expand');
-[l0X, g1X] = resize(result_l0, g1X);
+%testing expanding the complete pyramid
+result_g3_expanded = impyramid(result_g3, 'expand');
+[result_l2, result_g3_expanded] = resize(result_l2, result_g3_expanded);
+im_blended_l2 = result_l2 + result_g3_expanded;
 
-im_blended = l0X + g1X;
+result_g2_expanded = impyramid(result_g2, 'expand');
+[result_l1, result_g2_expanded] = resize(result_l1, result_g2_expanded);
+im_blended_l1 = result_l1 + result_g2_expanded;
+
+%expand first level pyramid
+result_g1_expanded = impyramid(result_g1, 'expand');
+[result_l0, result_g1_expanded] = resize(result_l0, result_g1_expanded);
+im_blended = result_l0 + result_g1_expanded;
 
 %expand second level pyramid and add to first
 g2X = impyramid(result_g2, 'expand');
