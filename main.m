@@ -8,6 +8,10 @@ img2 = histEqualize(img2);
 
 img1D = im2double(img1);
 img2D = im2double(img2);
+%imgt1 = colorTransfer(img1,img2);
+%imgt2 = colorTransfer(img2,img1);
+%img1D = im2double(imgt1);
+%img2D = im2double(imgt2);
 
 %[cImg1, cImg2] = combine(img1D, img2D);
 cImg = combine(img1D, img2D);
