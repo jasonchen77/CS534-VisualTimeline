@@ -105,16 +105,6 @@ result_g1_expanded = impyramid(result_g1, 'expand');
 [result_l0, result_g1_expanded] = resize(result_l0, result_g1_expanded);
 im_blended = result_l0 + result_g1_expanded;
 
-%-----Jason's Test---
-%expand second level pyramid - 
-% result_g2 = normalize(result_g2);
-% result_g2_expanded = impyramid(result_g2, 'expand');
-% [result_l1, result_g2_expanded] = resize(result_l1, result_g2_expanded);
-% im_blended1 = result_l1 + result_g2_expanded;
-% 
-% im_blended1 = impyramid(im_blended1, 'expand');
-% size(im_blended1)
-% im_blended = im_blended + im_blended1;
 
 %--------------------------------------
 
