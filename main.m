@@ -3,8 +3,8 @@ clear;
 img1 = imread('doyers-before.0.jpg');
 img2 = imread('doyers-after.0.jpg');
 
-img1 = histEqualize(img1);
-img2 = histEqualize(img2);
+%img1 = histEqualize(img1);
+%img2 = histEqualize(img2);
 
 img1D = im2double(img1);
 img2D = im2double(img2);
