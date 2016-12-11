@@ -27,8 +27,8 @@ im2_l0 = laplacianPyramid(im_in2, im2_g1);
 
 im1_l1 = laplacianPyramid(im1_g1, im1_g2);
 im2_l1 = laplacianPyramid(im2_g1, im2_g2);
-[im1_l1, im1_g1] = resize(im1_l1, im1_g1);
-[im2_l1, im2_g1] = resize(im2_l1, im2_g1);
+% [im1_l1, im1_g1] = resize(im1_l1, im1_g1);
+% [im2_l1, im2_g1] = resize(im2_l1, im2_g1);
 
 im1_l2 = laplacianPyramid(im1_g2, im1_g3);
 im2_l2 = laplacianPyramid(im2_g2, im2_g3);
@@ -47,7 +47,10 @@ im2_l2 = laplacianPyramid(im2_g2, im2_g3);
 
 % SEAM FINDING MATTE CREATION:
 %find seam
-S = findSeam(im_in1);
+% S = findSeam(im_in1);
+
+S = findSeamCollective(im_in1, im_in2);
+
 %create output matte of correct size
 [m,n,~] = size(im_in1);
 R = ones(n,m,3);
@@ -60,10 +63,24 @@ end
 R = permute(R, [2 1 3]);
 
 [R, im1_l0] = resize(R, im1_l0);
-R_g1 = impyramid(impyramid(impyramid(R, 'reduce'), 'reduce'), 'expand');
-% R_g = createMatte(im1_l1, im2_l1);
 
+R_g1 = impyramid(impyramid(impyramid(R, 'reduce'), 'reduce'), 'expand');
 R_g2 = impyramid(impyramid(impyramid(R_g1, 'reduce'), 'reduce'), 'expand');
+R_g3 = impyramid(impyramid(impyramid(R_g2, 'reduce'), 'reduce'), 'expand');
+
+[R_g1, im1_g1] = resize(R_g1, im1_g1);
+[R_g1, im2_g1] = resize(R_g1, im2_g1);
+[R_g2, im1_g2] = resize(R_g2, im1_g2);
+[R_g2, im2_g2] = resize(R_g2, im2_g2);
+[R_g3, im1_g3] = resize(R_g3, im1_g3);
+[R_g3, im2_g3] = resize(R_g3, im2_g3);
+
+[R, im1_l0] = resize(R, im1_l0);
+[R, im2_l0] = resize(R, im2_l0);
+[R_g1, im1_l1] = resize(R_g1, im1_l1);
+[R_g1, im2_l1] = resize(R_g1, im2_l1);
+[R_g2, im1_g2] = resize(R_g2, im1_g2);
+[R_g2, im2_g2] = resize(R_g2, im2_g2);
 
 %3. Form a combined pyramid LS from L1 and L2 using nodes of GR
 %   as weights:
@@ -71,8 +88,6 @@ result_l0 = normalize(R.*im1_l0+(1-R).*im2_l0);
 result_l1 = normalize(R_g1.*im1_l1+(1-R_g1).*im2_l1);
 result_l2 = normalize(R_g2.*im1_l2+(1-R_g2).*im2_l2);
     
-R_g2 = impyramid(impyramid(impyramid(R_g1, 'reduce'), 'reduce'), 'expand');
-R_g3 = impyramid(impyramid(impyramid(R_g2, 'reduce'), 'reduce'), 'expand');
 result_g3 = R_g3.*im1_g3+(1-R_g3).*im2_g3;
 result_g2 = R_g2.*im1_g2+(1-R_g2).*im2_g2;
 result_g1 = R_g1.*im1_g1+(1-R_g1).*im2_g1;
