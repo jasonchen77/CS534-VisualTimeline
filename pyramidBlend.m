@@ -124,7 +124,8 @@ im_blended = result_l0 + result_g1_expanded;
 %--------------------------------------
 
 %divide for correct color output - just for testing
-im_blended = im_blended/1.5;
+%im_blended = im_blended;
+im_blended = normalize(im_blended);
 figure;
 imshow(im_blended)
 title('image after collapsing pyramids')

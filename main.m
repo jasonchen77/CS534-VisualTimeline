@@ -1,7 +1,7 @@
 clear;clc;
 
-img1 = imread('stmarks-before.0.jpg');
-img2 = imread('stmarks-after.0.jpg');
+img1 = imread('doyers-before.0.jpg');
+img2 = imread('doyers-after.0.jpg');
 
 %img1 = histEqualize(img1);
 %img2 = histEqualize(img2);
