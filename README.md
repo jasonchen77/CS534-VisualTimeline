@@ -2,9 +2,7 @@
 Project for CS 534
 
 Required to run:
-findSeam.m
 findSeamCollective.m
-horizontal_seam.m
 horiztonalSeamCollective.m
 laplacianPyramid.m
 main.m
@@ -21,3 +19,5 @@ Not Needed:
 combine.m
 createMatte.m
 seamFindingTest.m
+horizontal_seam.m
+findSeam.m
