@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Visual Timeline</title>
+    <meta charset="utf-8">
+    <link href="visualtimeline.css" rel="stylesheet">
+</head>
+<body>
+<div id="wrapper">
+    <h1 id="header"><img src="VTLogo.jpg" alt="VisualTimelineLogo" height="117" width="619"></h1>
+    <div id="nav">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="relatedwork.html">Related Work</a></li>
+            <li><a href="method.html">Methods</a></li>
+            <li><a href="results.html">Results</a></li>
+            <li><a href="improvement.html">Improvements</a></li>
+        </ul>
+    </div>
+    <div id="content">
+        <img src="highline.jpg" alt="Highline" width="333" height="156" class="">
+        <h2>Abstract</h2>
+        <p>
+            The goal of this project is to highlight differences between two contrasting images taken
+            of the same scene at different points in history or at different times of day by combining
+            them to create a visual timeline output image. This will be accomplished by compositing two
+            input images into one blended image where each image takes up about half of the space in the
+            final processed image. In order to combine the images, we will use the Laplacian Pyramid
+            Blending method to seamlessly combine the images, creating a composite output image of the
+            two input images in the middle and leaving the originals unchanged further from the center.
+        </p>
+        <h2>Introduction & Motivation</h2>
+        <p>
+            Image compositing and blending has been around quite some time, but the idea of blending images
+            of same scene at different times of day or even decades has been relatively new.  The technique
+            of image compositing was invented in the 1880s after a suggestion for registering photographs of
+            human faces on the two eyes to create an average photograph of all those in the group.  With the
+            advancement of the computer technology in the 1990s, image compositing technique has greatly
+            improved using computer graphics software.
+        </p>
+        <p>
+            Previous works done blending images of the same scene at different times are very limited and were
+            done manually, mostly using Photoshop.  In this project, image compositing and blending will be
+            done using Matlab programming.  There are many techniques for blending images, this project will use
+            Laplacian Pyramid Blending.  This content-based blending technique using edge features, hides seams
+            but preserve sharp details in order to produce an output visual timeline photo that transitions
+            discretely between the old and the new photo.
+        </p>
+    </div>
+</div>
+</body>
+</html>
