@@ -17,6 +17,8 @@ im_laplacian = impyramid(im_gaussian, 'expand');
 %ensure images are the same size
 [im_original, im_laplacian] = resize(im_original, im_laplacian);
 
+%Compute difference between original and Gaussian filtered image to save as
+%Laplacian layer
 im_laplacian = im_original - im_laplacian;
 
 end

@@ -1,6 +1,6 @@
 function K = colorTransfer(I, J)
 %COLORTRANSFER Summary of this function goes here
-%   Detailed explanation goes here
+
 %change I
 %use J to change I
 %K is the final output of I*change

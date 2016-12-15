@@ -1,6 +1,6 @@
 function [ im_1, im_2 ] = resize( im_1, im_2 )
-%UNTITLED2 Summary of this function goes here
-%   Detailed explanation goes here
+%Given two input images, check the sizes of both and truncate one of the
+%images to match the size of the smaller image if necessary
 
 if ~all(size(im_1) == size(im_2))
     %ensure same number of cols
@@ -24,4 +24,3 @@ if ~all(size(im_1) == size(im_2))
 end
 
 end
-

@@ -1,5 +1,5 @@
 function [ normalized ] = normalize( original )
-% Normalizes values to be between 0.001 to 1 
+% Given an input image, normalize all pixel values in the image
 
 % Normalizing values   
     l_R = original(:,:,1);

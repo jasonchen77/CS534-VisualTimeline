@@ -25,8 +25,6 @@ im2_l0 = laplacianPyramid(im_in2, im2_g1);
 
 im1_l1 = laplacianPyramid(im1_g1, im1_g2);
 im2_l1 = laplacianPyramid(im2_g1, im2_g2);
-% [im1_l1, im1_g1] = resize(im1_l1, im1_g1);
-% [im2_l1, im2_g1] = resize(im2_l1, im2_g1);
 
 im1_l2 = laplacianPyramid(im1_g2, im1_g3);
 im2_l2 = laplacianPyramid(im2_g2, im2_g3);
@@ -38,15 +36,13 @@ im2_l2 = laplacianPyramid(im2_g2, im2_g3);
 %   images. Right now, it is split down the center, though later it would
 %   be better to find this automatically using seam finding!
 
-% STANDARD MATTE CREATION:
+% ***** STANDARD MATTE CREATION *****
 % R = ones(size(im_in1)); %assuming im1_l1 ad im2_l2 still same size
 % m2 = size(im_in1,2);
 % R = cat(2,0*R(:,1:(m2/2),:),R(:,(m2/2)+1:m2,:));
+% ***********************************
 
-% SEAM FINDING MATTE CREATION:
-%find seam
-% S = findSeam(im_in1);
-
+% ***** SEAM FINDING MATTE CREATION: *****
 S = findSeamCollective(im_in1, im_in2);
 
 %create output matte of correct size
@@ -59,20 +55,24 @@ end
 
 %rotate matte to correct orientation
 R = permute(R, [2 1 3]);
+% ******************************************
 
+% Ensure that images are the same size
 [R, im1_l0] = resize(R, im1_l0);
 
+% Create lower level output mattes
 R_g1 = impyramid(impyramid(impyramid(R, 'reduce'), 'reduce'), 'expand');
 R_g2 = impyramid(impyramid(impyramid(R_g1, 'reduce'), 'reduce'), 'expand');
 R_g3 = impyramid(impyramid(impyramid(R_g2, 'reduce'), 'reduce'), 'expand');
 
+% Ensure output mattes, Laplacian layers, and Gaussian layers are 
+% the same size
 [R_g1, im1_g1] = resize(R_g1, im1_g1);
 [R_g1, im2_g1] = resize(R_g1, im2_g1);
 [R_g2, im1_g2] = resize(R_g2, im1_g2);
 [R_g2, im2_g2] = resize(R_g2, im2_g2);
 [R_g3, im1_g3] = resize(R_g3, im1_g3);
 [R_g3, im2_g3] = resize(R_g3, im2_g3);
-
 [R, im1_l0] = resize(R, im1_l0);
 [R, im2_l0] = resize(R, im2_l0);
 [R_g1, im1_l1] = resize(R_g1, im1_l1);
@@ -91,9 +91,6 @@ result_g2 = R_g2.*im1_g2+(1-R_g2).*im2_g2;
 result_g1 = R_g1.*im1_g1+(1-R_g1).*im2_g1;
     
 %4. Collapse the LS pyramid to get the final blended image
-
-%----Testing codes, modify or delete later-----------------
-%testing expanding the complete pyramid
 result_g3 = normalize(result_g3);
 result_g3_expanded = impyramid(result_g3, 'expand');
 [result_l2, result_g3_expanded] = resize(result_l2, result_g3_expanded);
@@ -108,23 +105,15 @@ im_blended_1 = result_l1 + result_g2_expanded;
 [result_g1, im_blended_1] = resize(result_g1, im_blended_1);
 result_g1 = result_g1 + im_blended_1;
 
-
-%expand first level pyramid - this works if not added to other levels!
 result_g1 = normalize(result_g1);
 result_g1_expanded = impyramid(result_g1, 'expand');
 [result_l0, result_g1_expanded] = resize(result_l0, result_g1_expanded);
 im_blended = result_l0 + result_g1_expanded;
 
-
-%--------------------------------------
-
-%divide for correct color output - just for testing
 im_blended = normalize(im_blended);
-figure;
-imshow(im_blended)
-title('image after collapsing pyramids')
-%-----------------------------------------------------------
-
+% figure;
+% imshow(im_blended)
+% title('image after collapsing pyramids')
 
 end
 
