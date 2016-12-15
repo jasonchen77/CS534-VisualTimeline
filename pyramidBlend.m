@@ -17,11 +17,9 @@ im2_g1 = impyramid(im_in2, 'reduce');
 im1_g2 = impyramid(im1_g1, 'reduce');
 im2_g2 = impyramid(im2_g1, 'reduce');
 
-%
 im1_g3 = impyramid(im1_g2, 'reduce');
 im2_g3 = impyramid(im2_g2, 'reduce');
 
-%
 im1_l0 = laplacianPyramid(im_in1, im1_g1);
 im2_l0 = laplacianPyramid(im_in2, im2_g1);
 
@@ -94,9 +92,6 @@ result_g1 = R_g1.*im1_g1+(1-R_g1).*im2_g1;
     
 %4. Collapse the LS pyramid to get the final blended image
 
-%im_blended = impyramid(result_l2, 'expand');
-%im_blended = impyramid(result_l1, 'expand')+ result_l(1:257,:,:);
-
 %----Testing codes, modify or delete later-----------------
 %testing expanding the complete pyramid
 result_g3 = normalize(result_g3);
@@ -124,7 +119,6 @@ im_blended = result_l0 + result_g1_expanded;
 %--------------------------------------
 
 %divide for correct color output - just for testing
-%im_blended = im_blended;
 im_blended = normalize(im_blended);
 figure;
 imshow(im_blended)

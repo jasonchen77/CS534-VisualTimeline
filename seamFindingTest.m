@@ -8,24 +8,7 @@ I = inImg;
 J = rgb2gray(I);
 E = imgradient(J);
 
-%
 [seam, Max] = vertical_seam(E);
-%
-
-%-----Ignore, just trying out things-----
-% n = floor(size(inImg, 2)/2)-20;
-% I = inImg;
-% 
-% h = fspecial('average', [3,3]);
-% A = imfilter(I(:,n:n+40,:), h);
-% for c = n:1:n+40
-%     %I(:,n:n+40,:)
-% end
-% 
-% I(:,n:n+40,:) = cAvg;
-% 
-% outImg = I;
-%-----------------------------------------------
 
 end
 

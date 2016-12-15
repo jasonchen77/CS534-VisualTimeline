@@ -1,6 +1,5 @@
 function [ normalized ] = normalize( original )
-%UNTITLED5 Summary of this function goes here
-%   Detailed explanation goes here
+% Normalizes values to be between 0.001 to 1 
 
 % Normalizing values   
     l_R = original(:,:,1);
