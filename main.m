@@ -11,7 +11,7 @@ img2 = imread('highline-after.0.jpg');
 %convert images to double
 img1D = im2double(img1);
 img2D = im2double(img2);
-%option to transfer color between images before creating visual timeline
+%option to transfer color between images before creating visual timeline||comment two lines above first
 % imgt1 = colorTransfer(img1,img2);
 % imgt2 = colorTransfer(img2,img1);
 % img1D = im2double(imgt1);
